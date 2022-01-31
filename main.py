@@ -40,8 +40,8 @@ def enlarge_videos_fov(left_path, right_path):
         if not ret_right or not ret_left: break
 
         # transform to rgb
-        frame_left = cv2.cvtColor(frame_left, cv2.COLOR_BGR2RGB)
-        frame_right = cv2.cvtColor(frame_right, cv2.COLOR_BGR2RGB)
+        # frame_left = cv2.cvtColor(frame_left, cv2.COLOR_BGR2RGB)
+        # frame_right = cv2.cvtColor(frame_right, cv2.COLOR_BGR2RGB)
 
         # compute the homography once
         if has_to_compute_homography:
@@ -63,7 +63,9 @@ def enlarge_videos_fov(left_path, right_path):
         # combined from the left and right frame
         img_enlarged = Enlarger.enlarge_fov(frame_left, frame_right, homography)
         # swap the width with the height, final shape is : w,h,c
-        img_enlarged_for_video = np.rollaxis(img_enlarged, 1, 0)
+        #img_enlarged_for_video = np.rollaxis(img_enlarged, 1, 0)
+        #img_enlarged_for_video = cv2.flip(img_enlarged, 0)
+        img_enlarged_for_video = img_enlarged
         #print(img_enlarged_for_video.shape)
         video_enlarged.write(img_enlarged_for_video)
 
