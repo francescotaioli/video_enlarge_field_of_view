@@ -55,7 +55,7 @@ def enlarge_videos_fov(left_path, right_path):
                 print("HomographyNotValid")
                 return
             finally:
-                #todo improve code
+                # todo improve code
                 pass
             has_to_compute_homography = False
             print("computed!")
@@ -65,6 +65,7 @@ def enlarge_videos_fov(left_path, right_path):
         # swap the width with the height, final shape is : w,h,c
         img_enlarged_for_video = np.rollaxis(img_enlarged, 1, 0)
         #print(img_enlarged_for_video.shape)
+        #todo check thath the shape is equal, otherwise it will fail
         video_enlarged.write(img_enlarged_for_video)
 
 
