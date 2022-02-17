@@ -3,10 +3,6 @@ import numpy as np
 import utils.Homography as Homography
 import utils.Enlarger as Enlarger
 import argparse
-from os.path import join as osp
-import platform
-import datetime
-from tqdm import tqdm
 from subprocess import Popen, PIPE
 from utils.syncstart import file_offset
 
