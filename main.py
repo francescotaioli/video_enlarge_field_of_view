@@ -2,11 +2,12 @@ import cv2
 import numpy as np
 import utils.Homography
 import utils.Homography as Homography
-import utils.Enlarger  as Enlarger
+import utils.Enlarger as Enlarger
 import argparse
 from tqdm import tqdm
 
-
+#todo preprocessing -> portare stesso frame rate ffmpeg -i 2_R.mp4 -filter:v fps=30 2_R_30.mp4
+# todo errore se shape inpt è diverso
 def enlarge_videos_fov(left_path, right_path):
     left_camera = cv2.VideoCapture(left_path)
     right_camera = cv2.VideoCapture(right_path)
