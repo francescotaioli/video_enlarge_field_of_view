@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# taken from https://github.com/rpuntaie/syncstart
 
 """
 The steps taken by ``syncstart``:
@@ -55,6 +55,7 @@ o = lambda x: '%s%s' % (x, '.wav')
 
 
 def in_out(command, infile, outfile):
+    print(os.environ['PATH'])
     hdr = '-' * len(command)
     print("%s\n%s\n%s" % (hdr, command, hdr))
     ret = os.system(command.format(infile, outfile))
