@@ -32,6 +32,7 @@ import tempfile
 import os
 import pathlib
 import sys
+import subprocess
 
 __version__ = "1.0.0"
 __author__ = """Roland Puntaier"""
@@ -55,12 +56,12 @@ o = lambda x: '%s%s' % (x, '.wav')
 
 
 def in_out(command, infile, outfile):
-    print(os.environ['PATH'])
     hdr = '-' * len(command)
-    print("%s\n%s\n%s" % (hdr, command, hdr))
-    ret = os.system(command.format(infile, outfile))
-    if 0 != ret:
-        sys.exit(ret)
+    #print("%s\n%s\n%s" % (hdr, command, hdr))
+    sub = subprocess.run(command.format(infile, outfile), shell=True, capture_output=True)
+
+    if 0 != sub.returncode:
+        sys.exit(sub.returncode)
 
 
 def normalize_denoise(infile, outname):
@@ -197,7 +198,7 @@ def file_offset(args):
     """CLI interface to sync two media files using their audio streams.
     ffmpeg needs to be available.
     """
-
+    print("Start calculating offset...")
     global take, normalize, denoise, lowpass
     in1, in2, take, show = args['in1'], args['in2'], args['take'], args['show']
     normalize, denoise, lowpass = args['normalize'], args['denoise'], args['lowpass']
@@ -215,5 +216,5 @@ def file_offset(args):
     else:
         if show: show2(fs, s1[xmax:], s2, title='1st=blue=cut;2nd=red (%s;%s)' % (in1, in2))
         file, offset = in1, xmax / fs
-    print(sync_text % (file, offset))
+    #print(sync_text % (file, offset))
     return file, offset
