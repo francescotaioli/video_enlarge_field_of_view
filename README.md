@@ -9,8 +9,9 @@ Left video           |  Right video
 :-------------------------:|:-------------------------:
 ![](readme_photos/left.png)  |  ![](readme_photos/right.png)
 
-**Base**
+**Result**
 ![](readme_photos/result.gif)
+
 **Base**
 ![](readme_photos/support.png)
 
