@@ -17,6 +17,8 @@ Left video           |  Right video
 
 ## Features
 * Automatic video alignment (see ```utils/syncstart```)
+* Video merging through homography
+* Automatic homography calculator
 
 ## Environment
 * ```Python 3.10.0```
