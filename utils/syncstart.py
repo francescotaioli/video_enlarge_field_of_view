@@ -54,6 +54,7 @@ ffmpegdenoise = "ffmpeg -i {} -af 'afftdn=nf=-25' {}"
 ffmpeglow = "ffmpeg -i {} -af 'lowpass=f=%s' {}"
 o = lambda x: '%s%s' % (x, '.wav')
 
+class UnableToProcessVideo(Exception):pass
 
 def in_out(command, infile, outfile):
     hdr = '-' * len(command)
@@ -61,7 +62,7 @@ def in_out(command, infile, outfile):
     sub = subprocess.run(command.format(infile, outfile), shell=True, capture_output=True)
 
     if 0 != sub.returncode:
-        sys.exit(sub.returncode)
+        raise UnableToProcessVideo("Unable to process video. Is the audio present?")
 
 
 def normalize_denoise(infile, outname):
