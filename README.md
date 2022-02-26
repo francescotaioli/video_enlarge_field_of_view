@@ -13,9 +13,11 @@ Left video           |  Right video
 
 ![](readme_photos/result.gif)
 
-**Base**
 
-![](readme_photos/support.png)
+Ideally           |  Our setup
+:-------------------------:|:-------------------------:
+![](readme_photos/rotating.png)  |  ![](readme_photos/support.png)
+
 
 ## Features
 * Automatic video alignment (see ```utils/syncstart```)
