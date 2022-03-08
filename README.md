@@ -7,7 +7,7 @@ Naturally, this cannot be achieved. For this purpose, we have designed a base wi
 ## Idea
 Left video           |  Right video
 :-------------------------:|:-------------------------:
-![](readme_photos/left.png)  |  ![](readme_photos/right.png)
+![](readme_photos/syntetic_left.gif)  |  ![](readme_photos/syntetic_right.gif)
 
 **Result**
 
