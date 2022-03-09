@@ -1,4 +1,2 @@
-test*.mp4
-test*.avi
-left1.mp4
-right1.mp4
+*.mp4
+*.avi

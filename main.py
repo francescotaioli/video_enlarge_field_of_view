@@ -10,7 +10,7 @@ import tempfile
 from tqdm import tqdm
 from utils.syncstart import UnableToProcessVideo
 # todo preprocessing -> portare stesso frame rate ffmpeg -i 2_R.mp4 -filter:v fps=30 2_R_30.mp4
-# todo errore se shape inpt è diverso
+# todo errore se shape input è diverso
 def enlarge_videos_fov(left_path, right_path, grayscale):
     left_camera = cv2.VideoCapture(left_path)
     right_camera = cv2.VideoCapture(right_path)
@@ -27,7 +27,7 @@ def enlarge_videos_fov(left_path, right_path, grayscale):
 
     if not int(fps_right) == int(fps_left):
         print("!ABORT!: fps are different for the cameras")
-        #sys.exit(-1)
+        # sys.exit(-1)
         # todo handle the case
 
     has_to_compute_homography = True
