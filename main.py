@@ -1,3 +1,4 @@
+import os
 import sys
 import cv2
 import numpy as np
@@ -9,8 +10,8 @@ from utils.syncstart import file_offset
 import tempfile
 from tqdm import tqdm
 from utils.syncstart import UnableToProcessVideo
-# todo preprocessing -> portare stesso frame rate ffmpeg -i 2_R.mp4 -filter:v fps=30 2_R_30.mp4
-# todo errore se shape input è diverso
+# todo preprocessing -> bring the video to the same frame rate -> ffmpeg -i 2_R.mp4 -filter:v fps=30 2_R_30.mp4
+
 def enlarge_videos_fov(left_path, right_path, grayscale):
     left_camera = cv2.VideoCapture(left_path)
     right_camera = cv2.VideoCapture(right_path)
@@ -25,10 +26,9 @@ def enlarge_videos_fov(left_path, right_path, grayscale):
     print(f"Frames per second (left camera) :", left_camera.get(cv2.CAP_PROP_FPS))
     print(f"Frames per second (right camera) :", right_camera.get(cv2.CAP_PROP_FPS))
 
-    if not int(fps_right) == int(fps_left):
+    if not round(fps_right) == round(fps_left):
         print("!ABORT!: fps are different for the cameras")
-        # sys.exit(-1)
-        # todo handle the case
+        sys.exit(-1)
 
     has_to_compute_homography = True
     homography = np.zeros((3, 3))
@@ -37,7 +37,7 @@ def enlarge_videos_fov(left_path, right_path, grayscale):
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     h, w = round(right_camera.get(cv2.CAP_PROP_FRAME_HEIGHT)), round(right_camera.get(cv2.CAP_PROP_FRAME_WIDTH))
     print("Shape of the final video is:", (w * 2, h))
-    video_enlarged = cv2.VideoWriter("results/result.mp4", fourcc, fps_left, (w * 2, h))
+    video_enlarged = cv2.VideoWriter(os.path.join(args.result_path), fourcc, fps_left, (w * 2, h))
 
     tot_frame_first_video = int(left_camera.get(cv2.CAP_PROP_FRAME_COUNT))
     tot_frame_second_video = int(right_camera.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -64,15 +64,18 @@ def enlarge_videos_fov(left_path, right_path, grayscale):
             except Homography.HomographyNotValid:
                 print("HomographyNotValid")
                 return
-            finally:
-                # todo improve code
-                pass
+
             has_to_compute_homography = False
             tqdm.write("computed!")
 
         # combined from the left and right frame
         img_enlarged = Enlarger.enlarge_fov(frame_left, frame_right, homography)
-        # todo check that the shape is equal, otherwise it will fail
+
+        # check that the shape is equal to the sum of the inputs shape, otherwise it will fail?
+        h, w, c = frame_left.shape # equal to the right frame, same phone
+        if not (w * 2) == img_enlarged.shape[1]:
+            print("ERROR!: the final shape (width) is not equal to the sum of the input shape. Maybe the homography is not so correct?")
+            sys.exit(-1)
         video_enlarged.write(img_enlarged)  # write want h, w, c
         progress_bar.update(1)
 
@@ -118,8 +121,8 @@ def sync_videos(args):
         is_left = "right"
 
     process = Popen(['ffmpeg', '-i', video_to_cut, '-ss', str(offset), '-async', '1', video_with_offset], stdout=PIPE,
-                    stderr=PIPE) # todo handle offset format, fail if in   seconds
-    stdout, stderr = process.communicate() # todo handle error
+                    stderr=PIPE) # todo handle offset format, fail if in seconds
+    stdout, stderr = process.communicate()
 
     # return the video in the right order
     if is_left:
@@ -137,7 +140,9 @@ if __name__ == '__main__':
                         help='generate grayscale output,'
                              ' useful when combining videos obtained with different cameras',
                         default=0)
-    # todo add result video path
+    parser.add_argument('--result-path', type=str,
+                        help='the path of the output video',
+                        default='results/result.mp4')
     args = parser.parse_args()
 
     # calculating offset between the video
