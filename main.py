@@ -27,7 +27,7 @@ def enlarge_videos_fov(left_path, right_path, grayscale):
 
     if not int(fps_right) == int(fps_left):
         print("!ABORT!: fps are different for the cameras")
-        sys.exit(-1)
+        #sys.exit(-1)
         # todo handle the case
 
     has_to_compute_homography = True

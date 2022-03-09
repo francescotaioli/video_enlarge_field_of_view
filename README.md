@@ -18,6 +18,17 @@ Ideally           |  Our setup
 :-------------------------:|:-------------------------:
 ![](readme_photos/rotating.png)  |  ![](readme_photos/support.png)
 
+**How to use our 3d base with the same model of phone**
+
+In the picture below, you can find how to use our 3d base with the same model of phone. As you can see, 
+with this configuration, we can minimize the distance between the two cameras. This setup allows us to be 
+really close from the ideal one.
+
+Front           |               Back                
+:-------------------------:|:--------------------------------------:
+![](readme_photos/configuration.png)  | ![](readme_photos/configuration_2.png) 
+![](readme_photos/configuration_4.png) | ![](readme_photos/configuration_3.png)   
+
 
 ## Features
 * Automatic video alignment (see ```utils/syncstart```)
