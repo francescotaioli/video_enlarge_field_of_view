@@ -13,11 +13,6 @@ Left video           |  Right video
 
 ![](readme_photos/result.gif)
 
-
-Ideally           |  Our setup
-:-------------------------:|:-------------------------:
-![](readme_photos/rotating.png)  |  ![](readme_photos/support.png)
-
 **How to use our 3d base with the same model of phone**
 
 In the picture below, you can find how to use our 3d base with the same model of phone. As you can see, 
@@ -28,6 +23,12 @@ Front           |               Back
 :-------------------------:|:--------------------------------------:
 ![](readme_photos/configuration.png)  | ![](readme_photos/configuration_2.png) 
 ![](readme_photos/configuration_4.png) | ![](readme_photos/configuration_3.png)   
+
+
+Ideally           |  Our setup
+:-------------------------:|:-------------------------:
+![](readme_photos/rotating.png)  |  ![](readme_photos/support.png)
+
 
 
 ## Features
