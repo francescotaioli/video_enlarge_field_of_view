@@ -8,7 +8,7 @@ from subprocess import Popen, PIPE
 from utils.syncstart import file_offset
 import tempfile
 from tqdm import tqdm
-
+from utils.syncstart import UnableToProcessVideo
 # todo preprocessing -> portare stesso frame rate ffmpeg -i 2_R.mp4 -filter:v fps=30 2_R_30.mp4
 # todo errore se shape input è diverso
 def enlarge_videos_fov(left_path, right_path, grayscale):
@@ -94,8 +94,18 @@ def sync_videos(args):
                       'denoise': False,
                       'lowpass': 0}
 
-    file, offset = file_offset(syncstart_args)  # get offset
-    print(f"Done! File {file} needs {offset} to get in sync")
+    try:
+        file, offset = file_offset(syncstart_args)  # get offset
+        print(f"Done! File {file} needs {offset} to get in sync")
+    except UnableToProcessVideo as e:
+        print(e)
+        print("Set offset 0 for both the videos")
+        file, offset = args.left_video_path, 0
+    except Exception as e:
+        print("Unable to process. Exit the program")
+        sys.exit(-1)
+
+
 
     # which video I have to cut
     is_left = True
