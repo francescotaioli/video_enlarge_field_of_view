@@ -1,2 +1,4 @@
 *.mp4
 *.avi
+!test_left.mp4
+!test_right.mp4
